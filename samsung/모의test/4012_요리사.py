@@ -1,29 +1,21 @@
-def score(A):
-    global S, N
-    s1, s2 = 0, 0
-    B = list(set(range(N)) - set(A))
-    for i in range(len(A) - 1):
-        for j in range(i + 1, len(A)):
-            s1 += S[A[i]][A[j]]
-            s1 += S[A[j]][A[i]]
-    
-    for i in range(len(B) - 1):
-        for j in range(i + 1, len(B)):
-            s2 += S[B[i]][B[j]]
-            s2 += S[B[j]][B[i]]
-    return abs(s1 - s2)
-
 def dfs(F, i):
-    global S, ans, n
+    global S, ans, n, N
     
     if len(F) == n:
-        tmp = score(F)
+        s1, s2 = 0, 0
+        B = list(set(range(N)) - set(F))
+        for i in range(n - 1):
+            for j in range(i + 1, n):
+                s1 += S[F[i]][F[j]] + S[F[j]][F[i]]
+                s2 += S[B[i]][B[j]] + S[B[j]][B[i]]
+        tmp = abs(s1 - s2)
         if tmp < ans:
             ans = tmp
         return
     
     if i == N:
         return
+
     if len(F) < n:
         dfs(F + [i], i + 1)
         dfs(F, i + 1)
