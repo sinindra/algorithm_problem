@@ -2,13 +2,15 @@ def score(A):
     global S, N
     s1, s2 = 0, 0
     B = list(set(range(N)) - set(A))
-    for i in range(len(A)):
-        for j in range(len(A)):
+    for i in range(len(A) - 1):
+        for j in range(i + 1, len(A)):
             s1 += S[A[i]][A[j]]
+            s1 += S[A[j]][A[i]]
     
-    for i in range(len(B)):
-        for j in range(len(A)):
+    for i in range(len(B) - 1):
+        for j in range(i + 1, len(B)):
             s2 += S[B[i]][B[j]]
+            s2 += S[B[j]][B[i]]
     return abs(s1 - s2)
 
 def dfs(F, i):
