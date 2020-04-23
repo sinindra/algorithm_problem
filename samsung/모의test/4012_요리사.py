@@ -28,3 +28,11 @@ for test_case in range(1, T + 1):
     ans = float("inf")
     dfs([], 0)
     print("#{} {}".format(test_case, ans))
+    
+"""
+풀이설명:
+완전탐색.
+DFS를 통해 재료로 들어가 순서를 하나씩 추가.
+필요한 재료만큼 추가되면 리턴.
+필요한 만큼 재료가 채워지면 각각 시너지를 합한다.
+"""
