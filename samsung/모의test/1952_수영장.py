@@ -1,23 +1,14 @@
-def dfs(i, tmp_sum):
-    global ans
-    if i >= 12:
-        if tmp_sum < ans:
-            ans = tmp_sum
-        return
-    
-    if i < 12:
-        dfs(i+3, tmp_sum + fee[2])
-        dfs(i+1, tmp_sum + fee_tmp[i])
-
 T = int(input())
 for test_case in range(1, T + 1):
-    fee = list(map(int, input().split()))
+    prices= list(map(int, input().split()))
     plan = list(map(int, input().split()))
-    fee_tmp = [min(fee[0] * use, fee[1]) for use in plan]
-    
-    ans = float('inf')
-    dfs(0, 0)
-    if ans > fee[-1]:
-        ans = fee[-1]
+    dp = [0] * 13
+    for i in range(1, 13):
+        dp[i] = min(dp[i-1] + prices[0] * plan[i-1], dp[i-1] + prices[1])
+        if i >= 3:
+            dp[i] = min(dp[i], dp[i-3] + prices[2])
+    if dp[-1] > prices[-1]:
+        dp[-1] = prices[-1]
+    ans = dp[-1]
 
     print("#{} {}".format(test_case, ans))
